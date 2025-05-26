@@ -1,5 +1,7 @@
 <div id="container">
-  <div *ngFor="let tile of tiles">
-    {{tile.id}}
+  <div id="tiles-container">
+    <ng-container *ngFor="let tile of tiles">
+      <new-page-tiles [name]="tile.name"></new-page-tiles>
+    </ng-container>
   </div>
 </div>

@@ -4,17 +4,22 @@ import { Component } from '@angular/core';
 
 
 import { tileConfig } from '../../model/tiles';
+import { TilesComponent } from '../tiles/tiles.component';
 
 
 @Component({
   selector: 'new-page-tiles-container',
-  templateUrl: './tiles.component.html',
-  styleUrls: ['./tiles.component.scss'],
+  templateUrl: './tiles-container.component.html',
+  styleUrls: ['./tiles-container.component.scss'],
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, TilesComponent],
 })
-export class TilesComponent {
+export class TilesContainerComponent {
   tiles: tileConfig[] = [
+    {
+      id: 'bookmarks',
+      name: 'bookmarks',
+    },
     {
       id: 'bookmarks',
       name: 'bookmarks',

@@ -26,7 +26,11 @@
     "128": "images/icon-128x128.png"
   },
   "devtools_page": "devtools.html",
+  "chrome_url_overrides": {
+    "newtab": "pages/new-page/index.html"
+  },
   "options_page": "pages/options/index.html",
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "activeTab", "scripting", "bookmarks"],
+  "optional_permissions": ["storage", "bookmarks"],
   "host_permissions": ["<all_urls>"]
 }

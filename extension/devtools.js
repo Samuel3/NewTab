@@ -8,3 +8,7 @@ chrome.devtools.panels.create(
     // code invoked on panel creation
   }
 );
+
+// chrome.tabs.create({ url: 'http://heise.de' }, (tab) => {
+//   console.log(tab);
+// })

@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "devtools-panel",
+            "prefix": "new-page",
             "style": "kebab-case"
           }
         ]
