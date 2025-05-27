@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TilesContainerComponent } from './tiles-container.component';
+import { BookmarkTilesComponent } from './bookmark-tiles.component';
 
 describe('SearchTilesComponent', () => {
-  let component: TilesContainerComponent;
-  let fixture: ComponentFixture<TilesContainerComponent>;
+  let component: BookmarkTilesComponent;
+  let fixture: ComponentFixture<BookmarkTilesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TilesContainerComponent],
+      imports: [BookmarkTilesComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TilesContainerComponent);
+    fixture = TestBed.createComponent(BookmarkTilesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

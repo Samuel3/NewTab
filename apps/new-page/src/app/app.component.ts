@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
-
-
 import { TilesContainerComponent } from './components/tiles-container/tiles-container.component';
-import { TilesComponent } from './components/tiles/tiles.component';
-
 
 @Component({
   selector: 'new-page-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [TilesComponent, TilesComponent, TilesContainerComponent],
+  imports: [TilesContainerComponent],
   standalone: true,
 })
 export class AppComponent implements OnInit {

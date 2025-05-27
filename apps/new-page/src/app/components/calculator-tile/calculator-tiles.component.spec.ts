@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TilesContainerComponent } from './tiles-container.component';
+import { CalculatorTilesComponent } from './calculator-tiles.component';
 
 describe('SearchTilesComponent', () => {
-  let component: TilesContainerComponent;
-  let fixture: ComponentFixture<TilesContainerComponent>;
+  let component: CalculatorTilesComponent;
+  let fixture: ComponentFixture<CalculatorTilesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TilesContainerComponent],
+      imports: [CalculatorTilesComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TilesContainerComponent);
+    fixture = TestBed.createComponent(CalculatorTilesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
