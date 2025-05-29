@@ -10,7 +10,7 @@
         <div class="ticket" *ngFor="let ticket of column.tickets" cdkDrag>
           <div class="ticket-content" cdkDragHandle>
             <span>{{ ticket.title }}</span>
-            <button class="delete-btn" (click)="deleteTicket(column, ticket)">×</button>
+            <button class="delete-btn" (click)="deleteTicket(column, ticket)" aria-label="Delete ticket">×</button>
           </div>
         </div>
       </div>
