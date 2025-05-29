@@ -127,3 +127,11 @@ I recommend making the release automatic with GitHub actions or other ci service
 ## 📜 License
 
 [MIT](LICENSE)
+
+## Color Style
+
+Primary: `#202C39`
+Secondary: `#283845`
+Tertiary: `#F5F5F5`
+Quaternary: `#F2D492`
+Contrast: `#FF29559`

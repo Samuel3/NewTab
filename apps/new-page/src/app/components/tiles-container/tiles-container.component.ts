@@ -1,11 +1,12 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 
 import { tileConfig, TileType } from '../../model/tiles';
 import { BookmarkTilesComponent } from '../bookmark-tile/bookmark-tiles.component';
 import { CalculatorTilesComponent } from '../calculator-tile/calculator-tiles.component';
 import { SearchTilesComponent } from '../search-tile/search-tiles.component';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'new-page-tiles-container',
@@ -21,7 +22,7 @@ import { SearchTilesComponent } from '../search-tile/search-tiles.component';
     DragDropModule,
   ],
 })
-export class TilesContainerComponent {
+export class TilesContainerComponent implements OnInit {
   @Input() editMode = false;
   
   tiles: tileConfig[] = [
@@ -43,7 +44,17 @@ export class TilesContainerComponent {
   ];
   protected readonly TileType = TileType;
 
-  onDrop(event: CdkDragDrop<tileConfig[]>) {
+  constructor(private configService: ConfigService) {}
+
+  async ngOnInit() {
+    const savedConfig = await this.configService.loadTilesConfig();
+    if (savedConfig) {
+      this.tiles = savedConfig;
+    }
+  }
+
+  async onDrop(event: CdkDragDrop<tileConfig[]>) {
     moveItemInArray(this.tiles, event.previousIndex, event.currentIndex);
+    await this.configService.saveTilesConfig(this.tiles);
   }
 }

@@ -20,6 +20,6 @@ export class SearchTilesComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.searchElement.nativeElement.focus();
+    this.searchElement?.nativeElement?.focus();
   }
 }
