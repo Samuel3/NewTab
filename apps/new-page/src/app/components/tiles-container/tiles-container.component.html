@@ -3,7 +3,7 @@
     <div *ngFor="let row of tileRows" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onRowDrop($event)" class="tile-row">
       <div *ngFor="let tile of row" cdkDrag [cdkDragDisabled]="!editMode" class="tile-wrapper">
         <div class="tile-container">
-          <button *ngIf="editMode" class="delete-button" (click)="deleteTile(tile)">
+          <button *ngIf="editMode" class="delete-button" (click)="deleteTile(tile)" aria-label="Delete tile">
             <i class="fas fa-trash"></i>
           </button>
           <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name" [editMode]="editMode"></new-page-bookmark-tile>
