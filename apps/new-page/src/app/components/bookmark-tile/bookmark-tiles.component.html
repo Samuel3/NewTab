@@ -1,12 +1,33 @@
 <div id="container" [class.edit-mode]="editMode">
-  <h1>{{name}}</h1>
+  <div class="header">
+    <h1 class="header-title">{{name}}</h1>
+    <div class="button-group">
+      <button *ngIf="isEditing" class="reset-button" (click)="resetOrder()">
+        <i class="fas fa-undo"></i> Reset Order
+      </button>
+      <button class="edit-button" (click)="toggleEditMode()">
+        <i [class]="isEditing ? 'fas fa-save' : 'fas fa-edit'"></i> {{ isEditing ? 'Save' : 'Change Order' }}
+      </button>
+    </div>
+  </div>
   <div class="bookmark-tiles">
-    <div class="bookmark-grid">
-      <div *ngFor="let bookmark of bookmarks" class="bookmark-item">
-        <a [href]="bookmark.url" target="_blank" class="bookmark-link">
-          <img [src]="bookmark.favicon" [alt]="bookmark.title" class="bookmark-favicon">
-          <span class="bookmark-title">{{ bookmark.title }}</span>
-        </a>
+    <div cdkDropList
+         [cdkDropListDisabled]="!isEditing"
+         (cdkDropListDropped)="onDrop($event)"
+         cdkDropListOrientation="horizontal"
+         class="bookmark-grid">
+      <div *ngFor="let bookmark of bookmarks; let i = index"
+           cdkDrag
+           [cdkDragDisabled]="!isEditing"
+           class="bookmark-item"
+           [class.dragging]="isEditing">
+        <div class="bookmark-content">
+          <a [href]="bookmark.url" target="_blank" class="bookmark-link">
+            <img [src]="bookmark.favicon" [alt]="bookmark.title" class="bookmark-favicon">
+            <span class="bookmark-title">{{ bookmark.title }}</span>
+          </a>
+          <button *ngIf="isEditing" class="remove-button" (click)="removeBookmark(i)"><i class="fas fa-trash"></i> Entfernen</button>
+        </div>
       </div>
     </div>
   </div>
