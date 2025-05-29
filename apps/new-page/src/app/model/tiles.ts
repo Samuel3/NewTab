@@ -7,5 +7,6 @@ export interface tileConfig {
 export enum TileType {
   Bookmarks = 'bookmarks',
   Calculator = 'calculator',
-  Search = 'search'
+  Search = 'search',
+  Kanban = 'kanban'
 }
