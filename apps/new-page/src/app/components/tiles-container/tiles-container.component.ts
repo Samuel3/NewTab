@@ -1,6 +1,6 @@
 import { NgForOf, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { tileConfig, TileType } from '../../model/tiles';
 import { BookmarkTilesComponent } from '../bookmark-tile/bookmark-tiles.component';
@@ -43,6 +43,10 @@ export class TilesContainerComponent implements OnInit {
     },
   ];
   protected readonly TileType = TileType;
+  showTileSelection = false;
+  availableTileTypes = Object.values(TileType);
+  tileRows: tileConfig[][] = [[]];
+  maxTilesPerRow = 3;
 
   constructor(private configService: ConfigService) {}
 
@@ -51,10 +55,97 @@ export class TilesContainerComponent implements OnInit {
     if (savedConfig) {
       this.tiles = savedConfig;
     }
+    this.updateTileRows();
   }
 
-  async onDrop(event: CdkDragDrop<tileConfig[]>) {
-    moveItemInArray(this.tiles, event.previousIndex, event.currentIndex);
+  private updateTileRows() {
+    this.tileRows = [];
+    let currentRow: tileConfig[] = [];
+    
+    for (const tile of this.tiles) {
+      if (currentRow.length >= this.maxTilesPerRow) {
+        this.tileRows.push(currentRow);
+        currentRow = [];
+      }
+      currentRow.push(tile);
+    }
+    
+    if (currentRow.length > 0) {
+      this.tileRows.push(currentRow);
+    }
+  }
+
+  async onDrop(event: CdkDragDrop<tileConfig[][]>) {
+    moveItemInArray(this.tileRows, event.previousIndex, event.currentIndex);
+    this.tiles = this.tileRows.flat();
     await this.configService.saveTilesConfig(this.tiles);
+  }
+
+  async onRowDrop(event: CdkDragDrop<tileConfig[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+    this.tiles = this.tileRows.flat();
+    await this.configService.saveTilesConfig(this.tiles);
+  }
+
+  async deleteTile(tile: tileConfig) {
+    this.tiles = this.tiles.filter(t => t.id !== tile.id);
+    this.updateTileRows();
+    await this.configService.saveTilesConfig(this.tiles);
+  }
+
+  openTileSelection() {
+    this.showTileSelection = true;
+  }
+
+  closeTileSelection() {
+    this.showTileSelection = false;
+  }
+
+  async addTile(type: TileType) {
+    const newTile: tileConfig = {
+      id: Date.now().toString(),
+      name: this.getTileName(type),
+      tileType: type
+    };
+    
+    this.tiles.push(newTile);
+    this.updateTileRows();
+    await this.configService.saveTilesConfig(this.tiles);
+    this.closeTileSelection();
+  }
+
+  getTileName(type: TileType): string {
+    switch (type) {
+      case TileType.Bookmarks:
+        return 'Lesezeichen';
+      case TileType.Search:
+        return 'Suche';
+      case TileType.Calculator:
+        return 'Taschenrechner';
+      default:
+        return type;
+    }
+  }
+
+  getTileIcon(type: TileType): string {
+    switch (type) {
+      case TileType.Bookmarks:
+        return 'fas fa-bookmark';
+      case TileType.Search:
+        return 'fas fa-search';
+      case TileType.Calculator:
+        return 'fas fa-calculator';
+      default:
+        return 'fas fa-square';
+    }
   }
 }

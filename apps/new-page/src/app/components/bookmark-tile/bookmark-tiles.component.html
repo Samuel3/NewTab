@@ -1,7 +1,7 @@
 <div id="container" [class.edit-mode]="editMode">
   <div class="header">
     <h1 class="header-title">{{name}}</h1>
-    <div class="button-group">
+    <div class="button-group" *ngIf="!editMode">
       <button *ngIf="isEditing" class="reset-button" (click)="resetOrder()">
         <i class="fas fa-undo"></i> Reset Order
       </button>
@@ -10,7 +10,7 @@
       </button>
     </div>
   </div>
-  <div class="bookmark-tiles">
+  <div class="bookmark-tiles" *ngIf="!editMode">
     <div cdkDropList
          [cdkDropListDisabled]="!isEditing"
          (cdkDropListDropped)="onDrop($event)"

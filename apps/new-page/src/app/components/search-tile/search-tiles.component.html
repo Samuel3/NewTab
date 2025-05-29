@@ -1,5 +1,10 @@
 <div id="container" [class.edit-mode]="editMode">
-  <h1>{{this.name }}</h1>
-  <input id="searchBox" type="text" placeholder="Search..." [(ngModel)]="searchQuery" (change)="valueUpdated()" autofocus #search/>
-  <button (click)="valueUpdated()">Go</button>
+  <h1>{{ this.name }}</h1>
+  <ng-container *ngIf="!editMode">
+    <div class="search-container">
+      <input id="searchBox" type="text" placeholder="Search..." [(ngModel)]="searchQuery" (change)="valueUpdated()"
+             autofocus #search />
+      <button class="search-button" (click)="valueUpdated()">Go</button>
+    </div>
+  </ng-container>
 </div>
