@@ -1,6 +1,7 @@
 /// <reference types="chrome"/>
 import { AfterContentInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './search-tiles.component.html',
   styleUrls: ['./search-tiles.component.scss'],
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf],
 })
 export class SearchTilesComponent implements AfterContentInit {
   @ViewChild('search') searchElement!: ElementRef;
@@ -16,7 +17,7 @@ export class SearchTilesComponent implements AfterContentInit {
   @Input() editMode = false;
   searchQuery = '';
   valueUpdated() {
-    chrome.search.query({disposition: 'CURRENT_TAB', text: this.searchQuery})
+    chrome.search.query({ disposition: 'CURRENT_TAB', text: this.searchQuery });
   }
 
   ngAfterContentInit() {
