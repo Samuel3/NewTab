@@ -47,7 +47,13 @@ export class BookmarkTilesComponent implements OnInit {
       id: bookmark.id,
       order: index
     }));
-    chrome.storage.sync.set({ bookmarkOrder }, () => {});
+    chrome.storage.sync.set({ bookmarkOrder }, () => {
+      if (chrome.runtime.lastError) {
+        console.error('Failed to save bookmark order:', chrome.runtime.lastError.message);
+      } else {
+        console.log('Bookmark order saved successfully.');
+      }
+    });
   }
 
   private loadBookmarkOrder(): Promise<{ [key: string]: number }> {
