@@ -1,9 +1,9 @@
 <div id="container">
-  <div id="tiles-container">
-    <ng-container *ngFor="let tile of tiles">
-      <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name"></new-page-bookmark-tile>
-      <new-page-search-tile *ngIf="tile.tileType === TileType.Search" [name]="tile.name"></new-page-search-tile>
-      <new-page-calculator-tile *ngIf="tile.tileType === TileType.Calculator" [name]="tile.name"></new-page-calculator-tile>
-    </ng-container>
+  <div id="tiles-container" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
+    <div *ngFor="let tile of tiles" cdkDrag [cdkDragDisabled]="!editMode" class="tile-wrapper">
+      <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name" [editMode]="editMode"></new-page-bookmark-tile>
+      <new-page-search-tile *ngIf="tile.tileType === TileType.Search" [name]="tile.name" [editMode]="editMode"></new-page-search-tile>
+      <new-page-calculator-tile *ngIf="tile.tileType === TileType.Calculator" [name]="tile.name" [editMode]="editMode"></new-page-calculator-tile>
+    </div>
   </div>
 </div>

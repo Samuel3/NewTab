@@ -1,0 +1,10 @@
+#container {
+  border: 2px solid transparent;
+  padding: 1rem;
+  transition: border-color 0.3s ease;
+
+  &.edit-mode {
+    border-color: #ccc;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}

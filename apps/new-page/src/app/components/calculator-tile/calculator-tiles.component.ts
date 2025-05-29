@@ -10,5 +10,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CalculatorTilesComponent {
   @Input() name = '';
+  @Input() editMode = false;
   displayValue = '0';
 }

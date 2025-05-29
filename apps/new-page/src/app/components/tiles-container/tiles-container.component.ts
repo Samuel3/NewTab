@@ -1,13 +1,11 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-
-
+import { Component, Input } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 
 import { tileConfig, TileType } from '../../model/tiles';
 import { BookmarkTilesComponent } from '../bookmark-tile/bookmark-tiles.component';
 import { CalculatorTilesComponent } from '../calculator-tile/calculator-tiles.component';
 import { SearchTilesComponent } from '../search-tile/search-tiles.component';
-
 
 @Component({
   selector: 'new-page-tiles-container',
@@ -20,9 +18,12 @@ import { SearchTilesComponent } from '../search-tile/search-tiles.component';
     BookmarkTilesComponent,
     CalculatorTilesComponent,
     NgIf,
+    DragDropModule,
   ],
 })
 export class TilesContainerComponent {
+  @Input() editMode = false;
+  
   tiles: tileConfig[] = [
     {
       id: '0',
@@ -41,4 +42,8 @@ export class TilesContainerComponent {
     },
   ];
   protected readonly TileType = TileType;
+
+  onDrop(event: CdkDragDrop<tileConfig[]>) {
+    moveItemInArray(this.tiles, event.previousIndex, event.currentIndex);
+  }
 }

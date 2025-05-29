@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+/// <reference types="chrome"/>
+import { AfterContentInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 
@@ -9,17 +10,16 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
 })
-export class SearchTilesComponent implements OnInit {
+export class SearchTilesComponent implements AfterContentInit {
   @ViewChild('search') searchElement!: ElementRef;
   @Input() name = '';
+  @Input() editMode = false;
   searchQuery = '';
   valueUpdated() {
-    // @ts-ignore
     chrome.search.query({disposition: 'CURRENT_TAB', text: this.searchQuery})
-    console.log('Search query updated:', this.searchQuery);
   }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.searchElement.nativeElement.focus();
   }
 }

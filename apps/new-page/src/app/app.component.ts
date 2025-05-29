@@ -9,11 +9,17 @@ import { TilesContainerComponent } from './components/tiles-container/tiles-cont
   standalone: true,
 })
 export class AppComponent implements OnInit {
+  editMode = false;
+
   ngOnInit() {
     // @ts-ignore
     chrome.bookmarks.getTree().then((result) => {
       console.log('Bookmarks:', result);
     });
     console.log('New Page Component Initialized');
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
   }
 }

@@ -1,7 +1,10 @@
 <div id="container">
   <div id="heading">
     <h1>My start page</h1>
-    <button>Change</button>
+    <button (click)="toggleEditMode()">
+      <i class="fas fa-cog"></i>
+      Change
+    </button>
   </div>
-  <new-page-tiles-container></new-page-tiles-container>
+  <new-page-tiles-container [editMode]="editMode"></new-page-tiles-container>
 </div>

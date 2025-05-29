@@ -10,4 +10,11 @@ import { Component, Input } from '@angular/core';
 })
 export class BookmarkTilesComponent {
   @Input() name = '';
+  @Input() editMode = false;
+
+  constructor() {
+    chrome.bookmarks.getTree((bookmarks) => {
+      console.log('Bookmarks:', bookmarks);
+    });
+  }
 }
