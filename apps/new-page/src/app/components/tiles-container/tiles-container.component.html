@@ -19,7 +19,7 @@
   </div>
 
   <!-- Tile Selection Modal -->
-  <div *ngIf="showTileSelection" class="modal-overlay" (click)="closeTileSelection()">
+  <div *ngIf="showTileSelection" class="modal-overlay" role="dialog" aria-modal="true" (click)="closeTileSelection()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h2>Kachel auswählen</h2>
       <div class="tile-options">
