@@ -1,0 +1,20 @@
+<div id="container" [class.edit-mode]="editMode">
+  <h1>{{ this.name }}</h1>
+  <ng-container *ngIf="!editMode">
+    <div class="kanban-board" cdkDropListGroup>
+      <div class="kanban-column" *ngFor="let column of columns" 
+           cdkDropList 
+           [cdkDropListData]="column.tickets" 
+           (cdkDropListDropped)="drop($event)">
+        <h3>{{ column.title }}</h3>
+        <div class="ticket" *ngFor="let ticket of column.tickets" cdkDrag>
+          <div class="ticket-content" cdkDragHandle>
+            <span>{{ ticket.title }}</span>
+            <button class="delete-btn" (click)="deleteTicket(column, ticket)">×</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="add-ticket-btn" (click)="openAddTicketDialog()">+ Neues Ticket</button>
+  </ng-container>
+</div> 

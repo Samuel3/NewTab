@@ -9,6 +9,7 @@
           <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name" [editMode]="editMode"></new-page-bookmark-tile>
           <new-page-search-tile *ngIf="tile.tileType === TileType.Search" [name]="tile.name" [editMode]="editMode"></new-page-search-tile>
           <new-page-calculator-tile *ngIf="tile.tileType === TileType.Calculator" [name]="tile.name" [editMode]="editMode"></new-page-calculator-tile>
+          <app-kanban-tile *ngIf="tile.tileType === TileType.Kanban" [name]="tile.name" [editMode]="editMode"></app-kanban-tile>
         </div>
       </div>
     </div>
