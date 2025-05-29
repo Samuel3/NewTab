@@ -1,9 +1,38 @@
 <div id="container">
-  <div id="tiles-container" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
-    <div *ngFor="let tile of tiles" cdkDrag [cdkDragDisabled]="!editMode" class="tile-wrapper">
-      <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name" [editMode]="editMode"></new-page-bookmark-tile>
-      <new-page-search-tile *ngIf="tile.tileType === TileType.Search" [name]="tile.name" [editMode]="editMode"></new-page-search-tile>
-      <new-page-calculator-tile *ngIf="tile.tileType === TileType.Calculator" [name]="tile.name" [editMode]="editMode"></new-page-calculator-tile>
+  <div id="tiles-container" cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="onDrop($event)">
+    <div *ngFor="let row of tileRows" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onRowDrop($event)" class="tile-row">
+      <div *ngFor="let tile of row" cdkDrag [cdkDragDisabled]="!editMode" class="tile-wrapper">
+        <div class="tile-container">
+          <button *ngIf="editMode" class="delete-button" (click)="deleteTile(tile)">
+            <i class="fas fa-trash"></i>
+          </button>
+          <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name" [editMode]="editMode"></new-page-bookmark-tile>
+          <new-page-search-tile *ngIf="tile.tileType === TileType.Search" [name]="tile.name" [editMode]="editMode"></new-page-search-tile>
+          <new-page-calculator-tile *ngIf="tile.tileType === TileType.Calculator" [name]="tile.name" [editMode]="editMode"></new-page-calculator-tile>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="editMode" class="add-tile-button" (click)="openTileSelection()">
+      <i class="fas fa-plus"></i>
+      Kachel hinzufügen
+    </button>
+  </div>
+
+  <!-- Tile Selection Modal -->
+  <div *ngIf="showTileSelection" class="modal-overlay" (click)="closeTileSelection()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Kachel auswählen</h2>
+      <div class="tile-options">
+        <button *ngFor="let type of availableTileTypes" 
+                class="tile-option" 
+                (click)="addTile(type)">
+          <i [class]="getTileIcon(type)"></i>
+          {{ getTileName(type) }}
+        </button>
+      </div>
+      <button class="close-button" (click)="closeTileSelection()">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
   </div>
 </div>
