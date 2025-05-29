@@ -33,3 +33,70 @@
   font-size: 1rem;
   cursor: pointer;
 }
+
+.calculator {
+  width: 300px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.display {
+  background: #fff;
+  padding: 20px;
+  text-align: right;
+  font-size: 24px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: #e0e0e0;
+  }
+
+  &.operator {
+    background: #f8f9fa;
+    color: #007bff;
+  }
+
+  &.equals {
+    background: #007bff;
+    color: white;
+    grid-row: span 2;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+
+  &.clear {
+    background: #dc3545;
+    color: white;
+
+    &:hover {
+      background: #c82333;
+    }
+  }
+
+  &.zero {
+    grid-column: span 2;
+  }
+}
