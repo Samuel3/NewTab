@@ -1,5 +1,13 @@
 <div id="container" [class.edit-mode]="editMode">
-  <h1>{{this.name }}</h1>
-  <a href="https://youtube.com" target="_blank">YouTube</a><br>
-  <a href="https://github.com">GitHub</a>
+  <h1>{{name}}</h1>
+  <div class="bookmark-tiles">
+    <div class="bookmark-grid">
+      <div *ngFor="let bookmark of bookmarks" class="bookmark-item">
+        <a [href]="bookmark.url" target="_blank" class="bookmark-link">
+          <img [src]="bookmark.favicon" [alt]="bookmark.title" class="bookmark-favicon">
+          <span class="bookmark-title">{{ bookmark.title }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
