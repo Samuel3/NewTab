@@ -45,9 +45,24 @@ export class KanbanTileComponent implements OnInit {
     { title: 'Done', tickets: [] }
   ];
 
+  private readonly STORAGE_KEY = 'kanban_board_data';
+
   constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadBoard();
+  }
+
+  private saveBoard(): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.columns));
+  }
+
+  private loadBoard(): void {
+    const savedData = localStorage.getItem(this.STORAGE_KEY);
+    if (savedData) {
+      this.columns = JSON.parse(savedData);
+    }
+  }
 
   drop(event: CdkDragDrop<Ticket[]>) {
     if (event.previousContainer === event.container) {
@@ -60,6 +75,7 @@ export class KanbanTileComponent implements OnInit {
         event.currentIndex,
       );
     }
+    this.saveBoard();
   }
 
   openAddTicketDialog() {
@@ -74,6 +90,7 @@ export class KanbanTileComponent implements OnInit {
           title: result
         };
         this.columns[0]?.tickets.push(newTicket);
+        this.saveBoard();
       }
     });
   }
@@ -82,6 +99,7 @@ export class KanbanTileComponent implements OnInit {
     const index = column.tickets.indexOf(ticket);
     if (index > -1) {
       column.tickets.splice(index, 1);
+      this.saveBoard();
     }
   }
 }
