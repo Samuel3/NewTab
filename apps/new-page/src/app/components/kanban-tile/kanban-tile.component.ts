@@ -14,6 +14,7 @@ interface Ticket {
 }
 
 interface Column {
+  id: number;
   title: string;
   tickets: Ticket[];
 }
@@ -37,15 +38,16 @@ interface Column {
 export class KanbanTileComponent implements OnInit {
   @Input() name = 'Kanban Board';
   @Input() editMode = false;
-  
+
   columns: Column[] = [
-    { title: 'Open', tickets: [] },
-    { title: 'In Progress', tickets: [] },
-    { title: 'Waiting', tickets: [] },
-    { title: 'Done', tickets: [] }
+    { id: 1, title: 'Open', tickets: [] },
+    { id: 2, title: 'In Progress', tickets: [] },
+    { id: 3, title: 'Waiting', tickets: [] },
+    { id: 4, title: 'Done', tickets: [] }
   ];
 
   private readonly STORAGE_KEY = 'kanban_board_data';
+  newColumnTitle = '';
 
   constructor(private dialog: MatDialog) {}
 
@@ -78,6 +80,13 @@ export class KanbanTileComponent implements OnInit {
     this.saveBoard();
   }
 
+  dropColumn(event: CdkDragDrop<Column[]>) {
+    if (this.editMode) {
+      moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+      this.saveBoard();
+    }
+  }
+
   openAddTicketDialog() {
     const dialogRef = this.dialog.open(AddTicketDialogComponent, {
       width: '300px'
@@ -102,4 +111,35 @@ export class KanbanTileComponent implements OnInit {
       this.saveBoard();
     }
   }
+
+  addColumn() {
+    if (this.newColumnTitle.trim()) {
+      const newColumn: Column = {
+        id: Date.now(),
+        title: this.newColumnTitle.trim(),
+        tickets: []
+      };
+      this.columns.push(newColumn);
+      this.newColumnTitle = '';
+      this.saveBoard();
+    }
+  }
+
+  deleteColumn(column: Column) {
+    const index = this.columns.indexOf(column);
+    if (index > -1) {
+      this.columns.splice(index, 1);
+      this.saveBoard();
+    }
+  }
+
+  updateColumnTitle(column: Column, newTitle: string | Event) {
+    const title = typeof newTitle === 'string' ? newTitle : (newTitle.target as HTMLInputElement).value;
+    if (title.trim()) {
+      column.title = title.trim();
+      this.saveBoard();
+    }
+  }
+
+  protected readonly HTMLInputElement = HTMLInputElement;
 }
