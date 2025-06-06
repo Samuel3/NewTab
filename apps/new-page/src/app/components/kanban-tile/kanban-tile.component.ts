@@ -20,7 +20,7 @@ interface Column {
 }
 
 @Component({
-  selector: 'app-kanban-tile',
+  selector: 'new-page-kanban-tile',
   templateUrl: './kanban-tile.component.html',
   styleUrls: ['./kanban-tile.component.scss'],
   standalone: true,
