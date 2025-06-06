@@ -12,13 +12,19 @@ import { CommonModule } from '@angular/common';
     <h2 mat-dialog-title>Neues Ticket</h2>
     <mat-dialog-content>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Ticket Titel" [formControl]="titleControl">
+        <input matInput 
+               placeholder="Ticket Titel" 
+               [formControl]="titleControl"
+               (keyup.enter)="onSubmit()">
         <mat-error *ngIf="titleControl.hasError('required')">Titel ist erforderlich</mat-error>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="onCancel()">Abbrechen</button>
-      <button mat-raised-button color="primary" [disabled]="!titleControl.valid" (click)="onSubmit()">Hinzufügen</button>
+      <button mat-raised-button 
+              color="primary" 
+              [disabled]="!titleControl.valid" 
+              (click)="onSubmit()">Hinzufügen</button>
     </mat-dialog-actions>
   `,
   styles: [`

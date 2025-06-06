@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule } from '@angular/cdk/drag-drop';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule, CdkDropList } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -38,6 +38,9 @@ interface Column {
 export class KanbanTileComponent implements OnInit {
   @Input() name = 'Kanban Board';
   @Input() editMode = false;
+
+  @ViewChildren('ticketDropList') ticketDropLists!: QueryList<CdkDropList>;
+  @ViewChildren(CdkDropList) dropLists!: QueryList<CdkDropList>;
 
   columns: Column[] = [
     { id: 1, title: 'Open', tickets: [] },
@@ -89,17 +92,20 @@ export class KanbanTileComponent implements OnInit {
 
   openAddTicketDialog() {
     const dialogRef = this.dialog.open(AddTicketDialogComponent, {
-      width: '300px'
+      width: '300px',
+      disableClose: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result && typeof result === 'string') {
         const newTicket: Ticket = {
           id: Date.now(),
-          title: result
+          title: result.trim()
         };
-        this.columns[0]?.tickets.push(newTicket);
-        this.saveBoard();
+        if (this.columns[0]) {
+          this.columns[0].tickets.push(newTicket);
+          this.saveBoard();
+        }
       }
     });
   }
@@ -142,4 +148,8 @@ export class KanbanTileComponent implements OnInit {
   }
 
   protected readonly HTMLInputElement = HTMLInputElement;
+
+  getConnectedDropLists(): string[] {
+    return this.columns.map(column => 'dropList-' + column.id);
+  }
 }

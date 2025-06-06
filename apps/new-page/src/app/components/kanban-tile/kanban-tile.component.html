@@ -32,11 +32,13 @@
           </div>
           <div class="tickets-container"
                cdkDropList
+               [id]="'dropList-' + column.id"
                [cdkDropListData]="column.tickets"
+               [cdkDropListConnectedTo]="getConnectedDropLists()"
                (cdkDropListDropped)="drop($event)"
           >
             <div class="ticket" *ngFor="let ticket of column.tickets" cdkDrag>
-              <div class="ticket-content" cdkDragHandle>
+              <div class="ticket-content">
                 <span>{{ ticket.title }}</span>
                 <button class="delete-btn"
                         (click)="deleteTicket(column, ticket)"
