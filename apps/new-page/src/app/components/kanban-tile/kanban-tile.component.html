@@ -2,7 +2,7 @@
   <div class="header">
     <h1>{{ this.name }}</h1>
     <button class="edit-btn" (click)="editMode = !editMode">
-      {{ editMode ? 'Fertig' : 'Bearbeiten' }}
+      {{ editMode ? 'Done' : 'Edit' }}
     </button>
   </div>
 
@@ -54,13 +54,13 @@
   <div class="actions">
     <button class="add-ticket-btn"
             (click)="openAddTicketDialog()"
-            *ngIf="!editMode">+ Neues Ticket</button>
+            *ngIf="!editMode">+ New Ticket</button>
 
     <div class="add-column-form" *ngIf="editMode">
       <input [(ngModel)]="newColumnTitle"
-             placeholder="Neuer Spaltentitel"
+             placeholder="New Column Title"
              (keyup.enter)="addColumn()">
-      <button (click)="addColumn()">+ Neue Spalte</button>
+      <button (click)="addColumn()">+ New Column</button>
     </div>
   </div>
 </div>
