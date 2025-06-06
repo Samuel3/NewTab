@@ -6,6 +6,7 @@ import { tileConfig, TileType } from '../../model/tiles';
 import { BookmarkTilesComponent } from '../bookmark-tile/bookmark-tiles.component';
 import { CalculatorTilesComponent } from '../calculator-tile/calculator-tiles.component';
 import { SearchTilesComponent } from '../search-tile/search-tiles.component';
+import { KanbanTileComponent } from '../kanban-tile/kanban-tile.component';
 import { ConfigService } from '../../services/config.service';
 
 @Component({
@@ -18,13 +19,14 @@ import { ConfigService } from '../../services/config.service';
     SearchTilesComponent,
     BookmarkTilesComponent,
     CalculatorTilesComponent,
+    KanbanTileComponent,
     NgIf,
     DragDropModule,
   ],
 })
 export class TilesContainerComponent implements OnInit {
   @Input() editMode = false;
-  
+
   tiles: tileConfig[] = [
     {
       id: '0',
@@ -40,6 +42,11 @@ export class TilesContainerComponent implements OnInit {
       id: '2',
       name: 'calculator',
       tileType: TileType.Calculator,
+    },
+    {
+      id: '3',
+      name: 'kanban',
+      tileType: TileType.Kanban,
     },
   ];
   protected readonly TileType = TileType;
@@ -61,7 +68,7 @@ export class TilesContainerComponent implements OnInit {
   private updateTileRows() {
     this.tileRows = [];
     let currentRow: tileConfig[] = [];
-    
+
     for (const tile of this.tiles) {
       if (currentRow.length >= this.maxTilesPerRow) {
         this.tileRows.push(currentRow);
@@ -69,7 +76,7 @@ export class TilesContainerComponent implements OnInit {
       }
       currentRow.push(tile);
     }
-    
+
     if (currentRow.length > 0) {
       this.tileRows.push(currentRow);
     }
@@ -116,7 +123,7 @@ export class TilesContainerComponent implements OnInit {
       name: this.getTileName(type),
       tileType: type
     };
-    
+
     this.tiles.push(newTile);
     this.updateTileRows();
     await this.configService.saveTilesConfig(this.tiles);
@@ -131,6 +138,8 @@ export class TilesContainerComponent implements OnInit {
         return 'Suche';
       case TileType.Calculator:
         return 'Taschenrechner';
+      case TileType.Kanban:
+        return 'Kanban Board';
       default:
         return type;
     }
@@ -144,6 +153,8 @@ export class TilesContainerComponent implements OnInit {
         return 'fas fa-search';
       case TileType.Calculator:
         return 'fas fa-calculator';
+      case TileType.Kanban:
+        return 'fas fa-columns';
       default:
         return 'fas fa-square';
     }

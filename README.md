@@ -1,8 +1,8 @@
-# Chrome Extension Starter
+# CraftTab
 
-![Chrome Extension Starter Logo](.github/images/logo.png)
+![CraftTab Logo](./resources/Logo.png)
 
-Chrome Extension starter using Nx workspace and Angular.
+This is a Chrome Extension that lets you customize your new tab and allows you to add bookmarks, calculator and a Kanban board.
 
 ## 📖 Table of Contents
 
@@ -129,6 +129,8 @@ I recommend making the release automatic with GitHub actions or other ci service
 [MIT](LICENSE)
 
 ## Color Style
+
+See https://coolors.co/202c39-283845-b8b08d-f2d492-f29559
 
 Primary: `#202C39`
 Secondary: `#283845`

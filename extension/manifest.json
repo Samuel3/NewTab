@@ -31,6 +31,5 @@
   },
   "options_page": "pages/options/index.html",
   "permissions": ["tabs", "activeTab", "scripting", "bookmarks", "search", "storage"],
-  "optional_permissions": ["storage", "bookmarks"],
   "host_permissions": ["<all_urls>"]
 }
