@@ -9,6 +9,7 @@
           <new-page-bookmark-tile *ngIf="tile.tileType === TileType.Bookmarks" [name]="tile.name" [editMode]="editMode"></new-page-bookmark-tile>
           <new-page-search-tile *ngIf="tile.tileType === TileType.Search" [name]="tile.name" [editMode]="editMode"></new-page-search-tile>
           <new-page-calculator-tile *ngIf="tile.tileType === TileType.Calculator" [name]="tile.name" [editMode]="editMode"></new-page-calculator-tile>
+          <new-page-kanban-tile *ngIf="tile.tileType === TileType.Kanban" [name]="tile.name" [editMode]="editMode"></new-page-kanban-tile>
         </div>
       </div>
     </div>
@@ -23,8 +24,8 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h2>Kachel auswählen</h2>
       <div class="tile-options">
-        <button *ngFor="let type of availableTileTypes" 
-                class="tile-option" 
+        <button *ngFor="let type of availableTileTypes"
+                class="tile-option"
                 (click)="addTile(type)">
           <i [class]="getTileIcon(type)"></i>
           {{ getTileName(type) }}
